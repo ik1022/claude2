@@ -1,0 +1,128 @@
+{
+  "name": "@my-org/firmware",
+  "version": "1.0.0",
+  "description": "Bare-metal firmware for A31G123 and MM32F0162 (ARM Cortex-M0)",
+  "license": "MIT",
+  "xpack": {
+    "minimumXpmRequired": "0.21.4",
+    "dependencies": {},
+    "devDependencies": {
+      "@xpack-dev-tools/arm-none-eabi-gcc": {
+        "specifier": "15.2.1-1.1.1",
+        "local": "link",
+        "platforms": "all"
+      },
+      "@xpack-dev-tools/cmake": {
+        "specifier": "3.31.9-1.1",
+        "local": "link",
+        "platforms": "all"
+      },
+      "@xpack-dev-tools/ninja-build": {
+        "specifier": "1.13.1-1.1",
+        "local": "link",
+        "platforms": "all"
+      },
+      "@xpack-dev-tools/openocd": {
+        "specifier": "0.12.0-7.1",
+        "local": "link",
+        "platforms": "all"
+      },
+      "@xpack-dev-tools/qemu-arm": {
+        "specifier": "9.2.4-1.1",
+        "local": "link",
+        "platforms": "all"
+      }
+    },
+
+    "properties": {
+      "buildFolderRelativePath": "{{ 'build' | path_join: configuration.name | to_filename | downcase }}",
+      "toolchainFileName": "cmake/toolchains/arm-none-eabi-gcc.cmake",
+      "commandCmake": "cmake{% if os.platform == 'win32' %}.cmd{% endif %}",
+      "commandPrepare1": "{{properties.commandCmake}} -S . -B {{ properties.buildFolderRelativePath }} -G Ninja {% if os.platform == 'win32' %}-D CMAKE_MAKE_PROGRAM=ninja.cmd{% endif %} -D CMAKE_BUILD_TYPE={{ properties.buildType }} -D CMAKE_EXPORT_COMPILE_COMMANDS=ON",
+      "commandPrepare": "{{properties.commandCmake}} -S . -B {{ properties.buildFolderRelativePath }} -G Ninja {% if os.platform == 'win32' %}-D CMAKE_MAKE_PROGRAM=ninja.cmd{% endif %} -D CMAKE_BUILD_TYPE={{ properties.buildType }}",
+      "commandPrepareWithToolchain": "{{ properties.commandPrepare }} -DCMAKE_TOOLCHAIN_FILE={{ properties.toolchainFileName }}",
+      "commandReconfigure": "{{ properties.commandPrepare }}",
+      "commandBuild": "{{properties.commandCmake}} --build {{ properties.buildFolderRelativePath }} --clean-first",
+      "commandBuildWithoutClean": "{{properties.commandCmake}} --build {{ properties.buildFolderRelativePath }}",
+      "commandClean": "{{properties.commandCmake}} --build {{ properties.buildFolderRelativePath }} --target clean",
+      "commandExecuteHello": "{{ properties.buildFolderRelativePath }}{{ path.sep }}hello-world",
+      "memo": "{{properties.commandCmake}} -S. -B.build -GNinja -DCMAKE_BUILD_TYPE=Debug",
+      "version": "{{properties.commandCmake}} --version && ninja --version && arm-none-eabi-gcc --version"
+    },
+    "actions": {
+      "test-debug": [
+        "xpm run prepare --config a31g123-debug",
+        "xpm run build --config a31g123-debug"
+      ],
+      "build-debug": [
+        "xpm run build --config a31g123-debug"
+      ],
+      "test-release": [
+        "xpm run prepare --config a31g123-release",
+        "xpm run build --config a31g123-release"
+      ],
+      "test-all": [
+        "xpm run prepare --config a31g123-debug",
+        "xpm run build --config a31g123-debug",
+        "xpm run prepare --config a31g123-release",
+        "xpm run build --config a31g123-release",
+        "xpm run prepare --config mm32f0162-debug",
+        "xpm run build --config mm32f0162-debug",
+        "xpm run prepare --config mm32f0162-release",
+        "xpm run build --config mm32f0162-release"
+      ],
+      "clean": [
+        "xpm run clean --config a31g123-debug",
+        "xpm run clean --config a31g123-release",
+        "xpm run clean --config mm32f0162-debug",
+        "xpm run clean --config mm32f0162-release"
+      ]
+    },
+    "buildConfigurations": {
+      "a31g123-debug": {
+        "properties": {
+          "buildType": "Debug",
+          "targetMcu": "A31G123"
+        },
+        "actions": {
+          "prepare": "cmake -S . -B build/a31g123-debug -G Ninja -DCMAKE_BUILD_TYPE=Debug -DTARGET_MCU=A31G123 -DCMAKE_TOOLCHAIN_FILE=cmake/arm-none-eabi.cmake {% if os.platform == 'win32' %}-D CMAKE_MAKE_PROGRAM=ninja.cmd{% endif %}",
+          "build": "cmake --build build/a31g123-debug",
+          "clean": "cmake --build build/a31g123-debug --target clean"
+        }
+      },
+      "a31g123-release": {
+        "properties": {
+          "buildType": "Release",
+          "targetMcu": "A31G123"
+        },
+        "actions": {
+          "prepare": "cmake -S . -B build/a31g123-release -G Ninja -DCMAKE_BUILD_TYPE=Release -DTARGET_MCU=A31G123 -DCMAKE_TOOLCHAIN_FILE=cmake/arm-none-eabi.cmake {% if os.platform == 'win32' %}-D CMAKE_MAKE_PROGRAM=ninja.cmd{% endif %}",
+          "build": "cmake --build build/a31g123-release",
+          "clean": "cmake --build build/a31g123-release --target clean"
+        }
+      },
+      "mm32f0162-debug": {
+        "properties": {
+          "buildType": "Debug",
+          "targetMcu": "MM32F0162"
+        },
+        "actions": {
+          "prepare": "cmake -S . -B build/mm32f0162-debug -G Ninja -DCMAKE_BUILD_TYPE=Debug -DTARGET_MCU=MM32F0162 -DCMAKE_TOOLCHAIN_FILE=cmake/arm-none-eabi.cmake {% if os.platform == 'win32' %}-D CMAKE_MAKE_PROGRAM=ninja.cmd{% endif %}",
+          "build": "cmake --build build/mm32f0162-debug",
+          "clean": "cmake --build build/mm32f0162-debug --target clean"
+        }
+      },
+      "mm32f0162-release": {
+        "properties": {
+          "buildType": "Release",
+          "targetMcu": "MM32F0162"
+        },
+        "actions": {
+          "prepare": "cmake -S . -B build/mm32f0162-release -G Ninja -DCMAKE_BUILD_TYPE=Release -DTARGET_MCU=MM32F0162 -DCMAKE_TOOLCHAIN_FILE=cmake/arm-none-eabi.cmake {% if os.platform == 'win32' %}-D CMAKE_MAKE_PROGRAM=ninja.cmd{% endif %}",
+          "build": "cmake --build build/mm32f0162-release",
+          "clean": "cmake --build build/mm32f0162-release --target clean"
+        }
+      }
+    }
+  }
+}

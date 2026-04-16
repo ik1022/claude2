@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh repo:*)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(xpm install:*)",
+      "Bash(npm show:*)",
+      "Bash(xpm run:*)",
+      "Bash(xpacks/.bin/cmake -S . -B build/a31g123-debug -G Ninja -DCMAKE_MAKE_PROGRAM=C:/Users/ik1022/AppData/Roaming/xPacks/@xpack-dev-tools/ninja-build/1.13.1-1.1/.content/bin/ninja.exe -DCMAKE_BUILD_TYPE=Debug -DTARGET_MCU=A31G123 -DCMAKE_TOOLCHAIN_FILE=cmake/arm-none-eabi.cmake)",
+      "Bash(xpacks/.bin/cmake --build build/a31g123-debug)",
+      "Bash(xpacks/.bin/cmake -S . -B build/a31g123-release -G Ninja -DCMAKE_MAKE_PROGRAM=C:/Users/ik1022/AppData/Roaming/xPacks/@xpack-dev-tools/ninja-build/1.13.1-1.1/.content/bin/ninja.exe -DCMAKE_BUILD_TYPE=Release -DTARGET_MCU=A31G123 -DCMAKE_TOOLCHAIN_FILE=cmake/arm-none-eabi.cmake)",
+      "Bash(xpacks/.bin/cmake --build build/a31g123-release)",
+      "Bash(rm -rf R:/test/build/a31g123-release)",
+      "Bash(xpacks/.bin/cmake -S . -B build/a31g123-release -G Ninja -DCMAKE_MAKE_PROGRAM=C:/Users/ik1022/AppData/Roaming/xPacks/@xpack-dev-tools/ninja-build/1.13.1-1.1/.content/bin/ninja.exe -DCMAKE_C_COMPILER=C:/tools/gcc-arm-none-eabi-15.2.rel1/bin/arm-none-eabi-gcc.exe -DCMAKE_CXX_COMPILER=C:/tools/gcc-arm-none-eabi-15.2.rel1/bin/arm-none-eabi-g++.exe -DCMAKE_BUILD_TYPE=Release -DTARGET_MCU=A31G123 -DCMAKE_TOOLCHAIN_FILE=cmake/arm-none-eabi.cmake)",
+      "Bash(xpacks/.bin/cmake -S . -B build/mm32f0162-debug -G Ninja -DCMAKE_MAKE_PROGRAM=C:/Users/ik1022/AppData/Roaming/xPacks/@xpack-dev-tools/ninja-build/1.13.1-1.1/.content/bin/ninja.exe -DCMAKE_BUILD_TYPE=Debug -DTARGET_MCU=MM32F0162 -DCMAKE_TOOLCHAIN_FILE=cmake/arm-none-eabi.cmake)",
+      "Bash(xpacks/.bin/cmake --build build/mm32f0162-debug)",
+      "Bash(xpacks/.bin/cmake -S . -B build/mm32f0162-release -G Ninja -DCMAKE_MAKE_PROGRAM=C:/Users/ik1022/AppData/Roaming/xPacks/@xpack-dev-tools/ninja-build/1.13.1-1.1/.content/bin/ninja.exe -DCMAKE_BUILD_TYPE=Release -DTARGET_MCU=MM32F0162 -DCMAKE_TOOLCHAIN_FILE=cmake/arm-none-eabi.cmake)",
+      "Bash(xpacks/.bin/cmake --build build/mm32f0162-release)",
+      "Bash(arm-none-eabi-nm -C -n firmware)",
+      "Bash(arm-none-eabi-size --format=sysv firmware)",
+      "Bash(ninja -v)",
+      "Bash(grep \"firmware.exe\\\\|firmware$\\\\|CXX_EXECUTABLE\\\\|OBJECT_DIR\")"
+    ]
+  }
+}

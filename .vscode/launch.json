@@ -1,0 +1,76 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        // ── A31G123 + J-Link ──────────────────────────────────────────────
+        {
+            "name": "A31G123 (J-Link)",
+            "type": "cortex-debug",
+            "request": "launch",
+            "servertype": "jlink",
+            "serverpath": "C:/Program Files/SEGGER/JLink_V858/JLinkGDBServerCL.exe",
+            "device": "A31G123",
+            "interface": "swd",
+            "runToEntryPoint": "main_app",
+            "executable": "${workspaceFolder}/build/a31g123-debug/firmware",
+            "preLaunchTask": "build: a31g123-debug & flash",
+            "liveWatch": {
+                "enabled": true,
+                "samplesPerSecond": 1
+            }
+        },
+        // ── A31G123 + J-Link (진단용: 리셋 직후 즉시 정지) ──────────────
+        // 플래시가 제대로 써졌는지 확인용. PC 값이 RESET_handler 주소인지 확인.
+        {
+            "name": "A31G123 (J-Link) - halt at reset",
+            "type": "cortex-debug",
+            "request": "launch",
+            "servertype": "jlink",
+            "serverpath": "C:/Program Files/SEGGER/JLink_V858/JLinkGDBServerCL.exe",
+            "device": "A31G123",
+            "interface": "swd",
+            "showDevDebugOutput": "raw",
+            "breakAfterReset": true,
+            "executable": "${workspaceFolder}/build/a31g123-debug/firmware",
+            "preLaunchTask": "build: a31g123-debug"
+        },
+        // ── A31G123 + CMSIS-DAP (OpenOCD) ────────────────────────────────
+        {
+            "name": "A31G123 (CMSIS-DAP)",
+            "type": "cortex-debug",
+            "request": "launch",
+            "servertype": "openocd",
+            "configFiles": [
+                "${workspaceFolder}/.vscode/openocd/a31g123.cfg"
+            ],
+            "runToEntryPoint": "main_app",
+            "executable": "${workspaceFolder}/build/a31g123-debug/firmware",
+            "preLaunchTask": "build: a31g123-debug"
+        },
+        // ── MM32F0162 + J-Link ────────────────────────────────────────────
+        {
+            "name": "MM32F0162 (J-Link)",
+            "type": "cortex-debug",
+            "request": "launch",
+            "servertype": "jlink",
+            "serverpath": "C:/Program Files/SEGGER/JLink_V858/JLinkGDBServerCL.exe",
+            "device": "MM32F0162",
+            "interface": "swd",
+            "runToEntryPoint": "main_app",
+            "executable": "${workspaceFolder}/build/mm32f0162-debug/firmware",
+            "preLaunchTask": "build: mm32f0162-debug"
+        },
+        // ── MM32F0162 + CMSIS-DAP (OpenOCD) ──────────────────────────────
+        {
+            "name": "MM32F0162 (CMSIS-DAP)",
+            "type": "cortex-debug",
+            "request": "launch",
+            "servertype": "openocd",
+            "configFiles": [
+                "${workspaceFolder}/.vscode/openocd/mm32f0162.cfg"
+            ],
+            "runToEntryPoint": "main_app",
+            "executable": "${workspaceFolder}/build/mm32f0162-debug/firmware",
+            "preLaunchTask": "build: mm32f0162-debug"
+        }
+    ]
+}

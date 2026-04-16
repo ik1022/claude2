@@ -1,0 +1,41 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build: a31g123-debug",
+            "type": "shell",
+            "command": "xpm run build --config a31g123-debug",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always"
+            },
+            "problemMatcher": "$gcc"
+        },
+        {
+            "label": "build: mm32f0162-debug",
+            "type": "shell",
+            "command": "xpm run build --config mm32f0162-debug",
+            "group": "build",
+            "presentation": {
+                "reveal": "always"
+            },
+            "problemMatcher": "$gcc"
+        },
+        {
+            "label": "build: a31g123-debug & flash",
+            "type": "shell",
+            "command": "xpm run test-debug && pyocd flash -t a31g123 ./build/a31g123-debug/firmware.hex",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always"
+            },
+            "problemMatcher": "$gcc"
+        }
+    ]
+}

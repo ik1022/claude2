@@ -1,0 +1,5 @@
+{
+    "cortex-debug.armToolchainPath": "${workspaceFolder}/xpacks/@xpack-dev-tools/arm-none-eabi-gcc/.content/bin",
+    "cortex-debug.variableUseNaturalFormat": true,
+    "cortex-debug.liveWatchRefreshRate": 500
+}
