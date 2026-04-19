@@ -84,8 +84,8 @@ bsp/
 core_cm0/       ARM Cortex-M0 공통: 벡터 테이블, 리셋 핸들러, SysTick/NVIC/SCB
 hal/            MCU-독립 인터페이스 헤더 (gpio.hpp, clock.hpp, systick.hpp)
 mcu/
-  a31g123/      실리콘 레지스터 맵(reg/), HAL 구현, IRQ 벡터, 링커 스크립트
-  mm32f0162/    (동일 구조)
+  a31g123/      reg/{gpio,clock,wdt}.hpp, HAL 구현, IRQ 벡터, 링커 스크립트
+  mm32f0162/    reg/{gpio,clock}.hpp, HAL 구현, IRQ 벡터, 링커 스크립트
 cmake/          툴체인 파일 및 MCU별 타겟 설정
 ```
 
@@ -107,12 +107,13 @@ firmware (EXECUTABLE)  ← app/main.cpp
 
 | 실행 구성 | 디버거 |
 |-----------|--------|
+| A31G123 (PyOCD) | PyOCD |
 | A31G123 (J-Link) | SEGGER J-Link |
-| A31G123 (CMSIS-DAP) | OpenOCD |
 | MM32F0162 (J-Link) | SEGGER J-Link |
 | MM32F0162 (CMSIS-DAP) | OpenOCD |
 
-OpenOCD 설정 파일: [`.vscode/openocd/`](.vscode/openocd/)
+- PyOCD 설정: [`pyocd.yaml`](pyocd.yaml) — `target_override: A31G123`
+- OpenOCD 설정: [`.vscode/openocd/`](.vscode/openocd/)
 
 ## 주요 구현 사항
 
