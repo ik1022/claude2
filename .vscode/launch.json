@@ -16,11 +16,12 @@
             // "cwd": "${workspaceFolder}",          // cortex-debug 기본값
             "device": "a31g123",
             "executable": "${workspaceFolder}/build/a31g123-debug/firmware",
-            // "preLaunchTask": "build: a31g123-debug & flash",
+            "preLaunchTask": "build: a31g123-debug",
             // "debugServer": 50000,
             // "showDevDebugOutput": "parsed",       // 진단용 (GDB 트랜잭션 파싱 로그)
             // "showDevDebugTimestamps": true,       // 진단용 (타임스탬프 표시)
-            "breakAfterReset": true
+            "breakAfterReset": true,
+            "runToEntryPoint": "main_app"
         },
         // ── A31G123 + J-Link ──────────────────────────────────────────────
         {

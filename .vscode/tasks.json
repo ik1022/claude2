@@ -4,7 +4,7 @@
         {
             "label": "build: a31g123-debug",
             "type": "shell",
-            "command": "xpm run build --config a31g123-debug",
+            "command": "xpm run test-debug",
             "group": {
                 "kind": "build",
                 "isDefault": true
