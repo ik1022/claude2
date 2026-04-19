@@ -19,16 +19,16 @@ struct GpioPort
     volatile uint32_t BSR;   // 0x1C  Bit Set Register (write 1 to set)
     volatile uint32_t BCR;   // 0x20  Bit Clear Register (write 1 to clear)
     volatile uint32_t OMSR;  // 0x24  Output Mode Set Register
-    volatile uint32_t OMCR;  // 0x28  Output Mode Clear Register
+    volatile uint32_t DBCR;  // 0x28  Debounce Control Register
 };
 
 // GPIO base addresses — verify with A31G123 datasheet memory map
-inline GpioPort &PA = *reinterpret_cast<GpioPort *>(0x30000100u);
-inline GpioPort &PB = *reinterpret_cast<GpioPort *>(0x30000200u);
-inline GpioPort &PC = *reinterpret_cast<GpioPort *>(0x30000300u);
-inline GpioPort &PD = *reinterpret_cast<GpioPort *>(0x30000400u);
-inline GpioPort &PE = *reinterpret_cast<GpioPort *>(0x30000500u);
-inline GpioPort &PF = *reinterpret_cast<GpioPort *>(0x30000600u);
+inline GpioPort &PA = *reinterpret_cast<GpioPort *>(0x30000000u);
+inline GpioPort &PB = *reinterpret_cast<GpioPort *>(0x30000100u);
+inline GpioPort &PC = *reinterpret_cast<GpioPort *>(0x30000200u);
+inline GpioPort &PD = *reinterpret_cast<GpioPort *>(0x30000300u);
+inline GpioPort &PE = *reinterpret_cast<GpioPort *>(0x30000400u);
+inline GpioPort &PF = *reinterpret_cast<GpioPort *>(0x30000500u);
 
 // Helper: return GpioPort reference from port index 0=PA .. 5=PF
-inline GpioPort &gpio_port(uint32_t idx) { return *reinterpret_cast<GpioPort *>(0x30000100u + idx * 0x100u); }
+inline GpioPort &gpio_port(uint32_t idx) { return *reinterpret_cast<GpioPort *>(0x30000000u + idx * 0x100u); }

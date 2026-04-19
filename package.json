@@ -33,7 +33,6 @@
         "platforms": "all"
       }
     },
-
     "properties": {
       "buildFolderRelativePath": "{{ 'build' | path_join: configuration.name | to_filename | downcase }}",
       "toolchainFileName": "cmake/toolchains/arm-none-eabi-gcc.cmake",
@@ -79,6 +78,30 @@
       ]
     },
     "buildConfigurations": {
+      "debug": {
+        "properties": {
+          "buildType": "Debug",
+          "targetMcu": "A31G123"
+        },
+        "actions": {
+          "prepare": "{{ properties.commandPrepareWithToolchain }}",
+          "build": [
+            "{{ properties.commandReconfigure }}",
+            "{{ properties.commandBuild }}"
+          ],
+          "build_only": "{{ properties.commandBuildWithoutClean }}",
+          "clean": "{{ properties.commandClean }}",
+          "execute": "{{ properties.commandExecuteHello }}"
+        }
+      },
+      "release": {
+        "inherit": [
+          "debug"
+        ],
+        "properties": {
+          "buildType": "Release"
+        }
+      },
       "a31g123-debug": {
         "properties": {
           "buildType": "Debug",

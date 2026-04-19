@@ -27,7 +27,7 @@
         {
             "label": "build: a31g123-debug & flash",
             "type": "shell",
-            "command": "xpm run test-debug && pyocd flash -t a31g123 ./build/a31g123-debug/firmware.hex",
+            "command": "xpm run test-debug && python3 -m pyocd flash -t a31g123 ./build/a31g123-debug/firmware.hex",
             "group": {
                 "kind": "build",
                 "isDefault": true

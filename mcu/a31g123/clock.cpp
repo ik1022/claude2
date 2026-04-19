@@ -16,8 +16,8 @@ namespace hal
         {
             // Example: select HSIOSC, no divider → 32 MHz system clock.
             // Refer to ABOV A31G123 CG chapter for exact bit-field definitions.
-            CG.CLKSRCR = 0x0000'0001u; // TODO: verify — select HSIOSC
-            CG.CLKDIVR = 0x0000'0000u; // TODO: verify — divider = /1
+            // CG.CLKSRCR = 0x0000'0001u; // TODO: verify — select HSIOSC
+            // CG.CLKDIVR = 0x0000'0000u; // TODO: verify — divider = /1
         }
 
     } // namespace clock

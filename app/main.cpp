@@ -16,15 +16,15 @@ extern "C" void main_app()
 {
     bsp::init();
 
-    clkreg1 = 0x5A690000 | (37 << 10) | (26 << 4);
-    clkreg2 = 0x20;
+    clkreg1 = 0x5A690000 | (37 << 10) | (26 << 4); // wdt
+                                                   // clkreg2 = 0x20;                                // ppclk
 
-    pfmod = 0x4000;
+    // pfmod = 0x4000;
 
     while (true)
     {
-        // hal::gpio::toggle(bsp::led::PORT, bsp::led::PIN);
-        pfout ^= 0x80;
+        hal::gpio::toggle(bsp::led::PORT, bsp::led::PIN);
+        // pfout ^= 0x80;
         j++;
         hal::systick::delay_ms(500);
     }

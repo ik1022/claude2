@@ -12,10 +12,10 @@ namespace hal
 
         // Map Port enum → ClkEn0 bit
         static constexpr uint32_t port_clock_bits[] = {
-          ClkEn0::PA, ClkEn0::PB, ClkEn0::PC, ClkEn0::PD, ClkEn0::PE, ClkEn0::PF,
+          PPCLK1::PACLKE, PPCLK1::PBCLKE, PPCLK1::PCCLKE, PPCLK1::PDCLKE, PPCLK1::PECLKE, PPCLK1::PFCLKE,
         };
 
-        void enable_clock(Port port) { CG.CLKENR0 |= port_clock_bits[static_cast<uint8_t>(port)]; }
+        void enable_clock(Port port) { SCUCG.PPCLKEN1 |= port_clock_bits[static_cast<uint8_t>(port)]; }
 
         void configure(Port port, Pin pin, Mode mode, Pull pull)
         {
@@ -34,7 +34,7 @@ namespace hal
                     mod_val = 0x1u;
                     break;
                 case Mode::OutputOpenDrain:
-                    mod_val = 0x2u;
+                    mod_val = 0x1u;
                     break;
                 case Mode::Analog:
                     mod_val = 0x0u;

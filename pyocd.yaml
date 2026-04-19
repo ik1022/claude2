@@ -1,0 +1,5 @@
+
+# Global options
+target_override : A31G123
+chip_erase: chip
+# pack : ABOV.A31G1xx_Series.2.5.0.pack

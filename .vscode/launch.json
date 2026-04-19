@@ -1,6 +1,27 @@
 {
     "version": "0.2.0",
     "configurations": [
+        {
+            "name": "A31G123 (PyOCD)",
+            "type": "cortex-debug",
+            "request": "launch",
+            "servertype": "pyocd",
+            "serverArgs": [
+                // "-t", "a31g123",   // device 필드와 중복 (cortex-debug가 자동 전달)
+                // "--allow-remote",  // 외부 TCP 접속 허용 — 로컬 디버깅엔 불필요
+                // "--elf", "${workspaceFolder}/build/a31g123-debug/firmware",  // GDB가 symbol 로드 → 불필요
+                // "-e", "chip",      // 매 세션 chip erase (느림/flash 수명 손해, 기본 sector/auto가 충분)
+                // "-r"               // probe-server 활성화 — 멀티 클라이언트 공유 아니면 불필요
+            ],
+            // "cwd": "${workspaceFolder}",          // cortex-debug 기본값
+            "device": "a31g123",
+            "executable": "${workspaceFolder}/build/a31g123-debug/firmware",
+            // "preLaunchTask": "build: a31g123-debug & flash",
+            // "debugServer": 50000,
+            // "showDevDebugOutput": "parsed",       // 진단용 (GDB 트랜잭션 파싱 로그)
+            // "showDevDebugTimestamps": true,       // 진단용 (타임스탬프 표시)
+            "breakAfterReset": true
+        },
         // ── A31G123 + J-Link ──────────────────────────────────────────────
         {
             "name": "A31G123 (J-Link)",
@@ -12,39 +33,11 @@
             "interface": "swd",
             "runToEntryPoint": "main_app",
             "executable": "${workspaceFolder}/build/a31g123-debug/firmware",
-            "preLaunchTask": "build: a31g123-debug & flash",
+            "preLaunchTask": "build: a31g123-debug",
             "liveWatch": {
                 "enabled": true,
                 "samplesPerSecond": 1
             }
-        },
-        // ── A31G123 + J-Link (진단용: 리셋 직후 즉시 정지) ──────────────
-        // 플래시가 제대로 써졌는지 확인용. PC 값이 RESET_handler 주소인지 확인.
-        {
-            "name": "A31G123 (J-Link) - halt at reset",
-            "type": "cortex-debug",
-            "request": "launch",
-            "servertype": "jlink",
-            "serverpath": "C:/Program Files/SEGGER/JLink_V858/JLinkGDBServerCL.exe",
-            "device": "A31G123",
-            "interface": "swd",
-            "showDevDebugOutput": "raw",
-            "breakAfterReset": true,
-            "executable": "${workspaceFolder}/build/a31g123-debug/firmware",
-            "preLaunchTask": "build: a31g123-debug"
-        },
-        // ── A31G123 + CMSIS-DAP (OpenOCD) ────────────────────────────────
-        {
-            "name": "A31G123 (CMSIS-DAP)",
-            "type": "cortex-debug",
-            "request": "launch",
-            "servertype": "openocd",
-            "configFiles": [
-                "${workspaceFolder}/.vscode/openocd/a31g123.cfg"
-            ],
-            "runToEntryPoint": "main_app",
-            "executable": "${workspaceFolder}/build/a31g123-debug/firmware",
-            "preLaunchTask": "build: a31g123-debug"
         },
         // ── MM32F0162 + J-Link ────────────────────────────────────────────
         {
